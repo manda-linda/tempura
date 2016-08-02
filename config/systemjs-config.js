@@ -26,6 +26,8 @@ System.config({
         },
         "*.ts": {
           "loader": "ts"
+        },
+        "*.html": {
         }
       }
     },
@@ -37,6 +39,9 @@ System.config({
         },
         "*.ts": {
           "loader": "ts"
+        },
+        "*.html": {
+     
         }
       }
     }

@@ -1,0 +1,56 @@
+<!-- Custom Template to pull country flag images from Wikipedia -->
+<script type="text/ng-template" id="customTemplate.html">
+  <a>
+      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+      <span ng-bind-html="match.label | ghsTypeaheadHighlight:query"></span>
+  </a>
+</script>
+<!-- Custom Template to Utilize ngReload -->
+<script type="text/ng-template" id="ghsTemplate.html">
+    <a href="javascript:void(0);" ng-if="!match.model.ngDisabled" tabindex="-1" class="clickable">
+        <span>{{match.label}}</span>
+    </a>
+    <div ng-if="match.model.ngDisabled" class="bottom-border text-center">
+        <a href="javascript:void(0);" ng-click="match.model.toggleSavedAddress()">{{match.model.label}}</a>
+    </div>
+</script>
+<div class='container-fluid' ng-controller="TypeaheadCtrl">
+
+    <h4>Static arrays</h4>
+    <pre>Model: {{selected | json}}</pre>
+    <input type="text"
+           ng-model="selected"
+           ghs-typeahead="state for state in states | filter:$viewValue | limitTo:8"
+           class="form-control">
+
+    <h4>Asynchronous results</h4>
+    <pre>Model: {{asyncSelected | json}}</pre>
+    <input type="text"
+           ng-model="asyncSelected"
+           placeholder="Locations loaded via $http"
+           ghs-typeahead="address for address in getLocation($viewValue)"
+           typeahead-loading="loadingLocations"
+           class="form-control">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
+    <h4>Custom templates for results</h4>
+    <pre>Model: {{customSelected | json}}</pre>
+    <input type="text"
+           ng-model="customSelected"
+           placeholder="Custom template"
+           ghs-typeahead="state as state.name for state in statesWithFlags | filter:{name:$viewValue}"
+           typeahead-template-url="customTemplate.html"
+           class="form-control">
+
+    <h4>(GHS Features Demo) ngDisabled and Real Time Reload</h4>
+    <pre>Model: {{ghsModel | json}}</pre>
+    <input type="text"
+           ng-model="ghsModel"
+           placeholder="GHS Model"
+           ghs-typeahead="address for address in placeAutocomplete()"
+           typeahead-template-url="ghsTemplate.html"
+           expose-reload="true"
+           class="form-control">
+
+
+</div>

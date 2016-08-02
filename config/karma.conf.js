@@ -10,22 +10,35 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jspm','jasmine'],
+    frameworks: ['jspm','jasmine', 'phantomjs-shim'],
+    preprocessors: {
+       'src/typeahead/template/*.html': ['ng-html2js']
+    },
+    files: [        
+      'node_modules/angular/angular.min.js',
+      'src/typeahead/template/*.html'
+    ],
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'src/',
+      moduleName: 'templates'
+    },
 
     jspm: {
       config: 'config/systemjs-config.js',
       stripExtension: false,
       loadFiles: [
-        'jspm_packages/npm/angular@1.5.3/angular.min.js',
         'jspm_packages/npm/angular-mocks@1.5.3/angular-mocks.js',
         'config/mock-modules.js',
-        'src/**/*-spec.ts'   
+        'test-lib/helpers.js',
+        'src/**/*-spec.ts',
+        'src/**/*-spec.js'      
       ],
       serveFiles: [
         'src/**/!(*spec).js',
         'src/**/!(*spec).ts',
+        'test-lib/*',
         'config/**/*.js'
-      ],
+     ],
      packages: 'jspm_packages',
      paths: {
         "npm:*": "/jspm_packages/npm/*",
@@ -36,8 +49,10 @@ module.exports = function(config) {
       '/src' : '/base/src/',
       '/config' : '/base/config',
       '/node_modules' : '/base/node_modules',
-      '/jspm_packages':'/base/jspm_packages'
+      '/jspm_packages':'/base/jspm_packages',
+      '/test-lib': '/base/test-lib'
     },
+
     // list of files to exclude
     exclude: [
     ],
@@ -78,5 +93,9 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
+  });
+
+  if(process.env.TRAVIS) {
+    config.browsers = ['PhantomJS'];
+  }
 }

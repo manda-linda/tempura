@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+    - "5.1"
+before_script:
+    - jspm config registries.github.auth $GITHUB_OAUTH_TOKEN
+    - jspm install
+script: 
+    - gulp test

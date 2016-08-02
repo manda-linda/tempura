@@ -6,3 +6,4 @@ jspm_packages
 typings/**/*
 !typings/tsd.d.ts
 src/vendor
+npm-debug.log
