@@ -11,6 +11,7 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jspm','jasmine', 'phantomjs-shim'],
+
     preprocessors: {
        'src/typeahead/template/*.html': ['ng-html2js']
     },
