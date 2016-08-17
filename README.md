@@ -1,5 +1,7 @@
 # Tempura
 
+[![Build Status] (https://travis-ci.org/manda-linda/tempura.svg?branch=master)](https://travis-ci.org/manda-linda/tempura)
+
 ##Setup module
 `npm install manda-linda/tempura --save-dev`
 
