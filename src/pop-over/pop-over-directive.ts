@@ -504,5 +504,5 @@ class PopOverController {
 
 }
 
-var tempura = angular.module('tempura.popOver', [])
+var tempura = angular.module('tempura.popOver', ['tempura.utility.position'])
     .directive('ghsPopOver', PopOver.instance);

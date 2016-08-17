@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="/node_modules/systemjs/dist/system.js"></script>
+    <script src="/config/systemjs-config.js"></script>
+</head>
+
+<body ng-controller="exampleController">
+
+<input ghs-typeahead="result.value for result in callBack($viewValue)" 
+       ng-model="exampleModel"
+       ng-model-options="{ updateOn: 'default', debounce: { 'default': 1000 } }"
+       ></input>
+<button ng-click="click()"> CLICK TO INCREMENT MODEL </button>
+<script>
+    System.import('/example/bootstrapper');
+    </script>
+</body>
+
+
+</html>
