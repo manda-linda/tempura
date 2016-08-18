@@ -28,6 +28,7 @@ System.config({
           "loader": "ts"
         },
         "*.html": {
+          "loader": "text"
         }
       }
     },
@@ -41,7 +42,7 @@ System.config({
           "loader": "ts"
         },
         "*.html": {
-     
+          "loader": "text"
         }
       }
     }
@@ -56,6 +57,7 @@ System.config({
     "jasmine": "npm:jasmine@2.4.1",
     "karma-typescript-preprocessor": "npm:karma-typescript-preprocessor@0.2.1",
     "manda-linda/tempura": "github:manda-linda/tempura@0.0.2",
+    "text": "github:systemjs/plugin-text@0.0.7",
     "ts": "github:frankwallis/plugin-typescript@4.0.16",
     "typescript": "npm:typescript@1.8.10",
     "github:frankwallis/plugin-typescript@4.0.16": {

@@ -31,7 +31,6 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-jspm": "git+https://github.com/erictsai6/karma-jspm#2.2.0",
-    "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-phantomjs-shim": "^1.2.0",
     "typescript": "^1.8.10",
@@ -46,6 +45,7 @@
     "dependencies": {
       "angular-mocks": "npm:angular-mocks@1.5.3",
       "jasmine": "npm:jasmine@2.4.1",
+      "text": "github:systemjs/plugin-text@^0.0.7",
       "ts": "github:frankwallis/plugin-typescript@^4.0.1"
     },
     "devDependencies": {

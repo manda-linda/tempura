@@ -1,4 +1,4 @@
-import '../typeahead.js';
+import '../typeahead';
 
 describe('typeaheadPopup - result rendering', function () {
 
@@ -6,7 +6,6 @@ describe('typeaheadPopup - result rendering', function () {
   beforeEach(function () {
         angular.mock.module('tempura.typeahead');    
     });
-  beforeEach(module('templates'));
 
   beforeEach(inject(function (_$rootScope_, _$compile_) {
     $rootScope = _$rootScope_;
