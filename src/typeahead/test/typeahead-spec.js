@@ -411,13 +411,12 @@ describe('typeahead tests', function() {
     }));
 
     it('should support custom popup templates', function() {
-      $templateCache.put('custom.html', '<div class="custom">foo</div>');
+      $templateCache.put('custom.html', '<custom class="custom">foo</custom>');
 
       var element = prepareInputEl('<div><input ng-model="result" typeahead-popup-template-url="custom.html" ghs-typeahead="state as state.name for state in states | filter:$viewValue"></div>');
 
       changeInputValueTo(element, 'Al');
-
-      expect(element.find('div').text()).toBe('foo');
+      expect(element.find('custom').text()).toBe('foo');
     });
 
     it('should support custom templates for matched items', function() {

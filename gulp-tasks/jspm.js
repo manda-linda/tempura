@@ -5,7 +5,7 @@ module.exports = function(){
     jspm({        
         bundleOptions: {
             mangle: false,
-            minify: true
+            minify: false
         },
         bundleSfx: true,
         bundles: [

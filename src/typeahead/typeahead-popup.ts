@@ -14,7 +14,8 @@ export class TypeaheadPopup implements ng.IDirective {
         moveInProgress: '<',
         select: '&',
         assignIsOpen: '&',
-        debounce: '&'
+        debounce: '&',
+        templateUrl: '@'
   };
   public replace: boolean = true;
   public templateUrl = (element, attrs) => {

@@ -3,7 +3,15 @@ System.config({
     "bundles": {
         "tempura.js": [
             "src/app.ts",
-            "src/pop-over/pop-over-directive.ts"
+            "src/pop-over/pop-over-directive.ts",
+            "src/typeahead/template/typeahead-match.html!github:systemjs/plugin-text@0.0.7.js",
+            "src/typeahead/template/typeahead-popup.html!github:systemjs/plugin-text@0.0.7.js",
+            "src/typeahead/typeahead-match.ts",
+            "src/typeahead/typeahead-parser.ts",
+            "src/typeahead/typeahead-popup.ts",
+            "src/typeahead/typeahead.ts",
+            "src/utility/debounce.ts",
+            "src/utility/position.ts"
         ]
     },
     "defaultJSExtensions": true,
@@ -184,6 +192,7 @@ System.config({
         "npm:vm-browserify@0.0.4": {
             "indexof": "npm:indexof@0.0.1"
         },
+        "text": "github:systemjs/plugin-text@0.0.7",
         "ts": "github:frankwallis/plugin-typescript@4.0.16",
         "typescript": "npm:typescript@1.8.10"
     },
@@ -191,6 +200,9 @@ System.config({
         "/src": {
             "defaultExtension": "ts",
             "meta": {
+                "*.html": {
+                    "loader": "text"
+                },
                 "*.js": {
                     "loader": "ts"
                 },
@@ -202,6 +214,9 @@ System.config({
         "src": {
             "defaultExtension": "ts",
             "meta": {
+                "*.html": {
+                    "loader": "text"
+                },
                 "*.js": {
                     "loader": "ts"
                 },
