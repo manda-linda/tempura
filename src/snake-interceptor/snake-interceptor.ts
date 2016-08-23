@@ -11,12 +11,20 @@ export class snakeInterceptor {
 
     public response = (response) => {
         if(response.data){
-            response.data = this.transformResponse(response.data);        
+            response.data = this.snakeToCamelCase(response.data);        
         }
         return this.$q.resolve(response);
     };
 
-    private transformResponse(data): any {
+    public responseTransformer = (data) => {
+        if(!data){
+            return data;
+        }
+
+        return this.snakeToCamelCase(data);
+    }
+
+    private snakeToCamelCase(data): any {
         let newData = {};
 
         for(var key in data){
@@ -28,7 +36,7 @@ export class snakeInterceptor {
                     }).replace('_','');
                 }).replace('_','');    
             }
-            newData[newKey] = angular.isObject(data[key]) ? this.transformResponse(data[key]) : data[key];
+            newData[newKey] = angular.isObject(data[key]) ? this.snakeToCamelCase(data[key]) : data[key];
         }
         return newData;
     }
