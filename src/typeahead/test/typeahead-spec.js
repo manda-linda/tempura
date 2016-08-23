@@ -1,3 +1,5 @@
+///<reference path="../../../typings/index.d.ts"/>
+
 import '../typeahead';
 
 describe('typeahead tests', function() {
