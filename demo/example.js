@@ -8,14 +8,15 @@ import prism from 'node_modules/prismjs/prism';
 angular.module('examples', [])
 
 .controller("exampleController",['$scope', '$sce', function($scope, $sce){
+    $scope.typeahead1 = $sce.trustAsHtml(prism.highlight(typeahead1, prism.languages.markup));
+    $scope.popover1 = $sce.trustAsHtml(prism.highlight(popover1, prism.languages.markup));
+    $scope.popover2 = $sce.trustAsHtml(prism.highlight(popover2, prism.languages.markup));
+    $scope.popover3 = $sce.trustAsHtml(prism.highlight(popover3, prism.languages.markup));
+   
     $scope.exampleModel = {
         value: ""
     };
-    $scope.typeahead1 = $sce.trustAsHtml(prism.highlight(typeahead1, Prism.languages.markup));
-    $scope.popover1 = $sce.trustAsHtml(prism.highlight(popover1, Prism.languages.markup));
-    $scope.popover2 = $sce.trustAsHtml(prism.highlight(popover2, Prism.languages.markup));
-    $scope.popover3 = $sce.trustAsHtml(prism.highlight(popover3, Prism.languages.markup));
-   
+
     $scope.callBack = function($viewValue) {
         var results = [];
         for( var i = 0 ; i < food.dishes.length; i++) {
@@ -29,6 +30,26 @@ angular.module('examples', [])
         var random = Math.floor(Math.random() * food.dishes.length);
         $scope.exampleModel.value = food.dishes[random];
     }
+
+    $scope.typeahead1Code = $sce.trustAsHtml(prism.highlight(`       
+        $scope.exampleModel = {
+            value: ""
+        };
+        
+        $scope.callBack = function($viewValue) {
+            var results = [];
+            for( var i = 0 ; i < food.dishes.length; i++) {
+                if(food.dishes[i].toLowerCase().indexOf($viewValue.toLowerCase()) > -1){
+                    results.push({value: food.dishes[i]});
+                }
+            }
+            return results;
+        }
+        $scope.click = function() {
+            var random = Math.floor(Math.random() * food.dishes.length);
+            $scope.exampleModel.value = food.dishes[random];
+        };
+    `, prism.languages.javascript) ;
 
 var food = {
     "dishes":[

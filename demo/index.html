@@ -6,7 +6,9 @@
     <script src="/config/systemjs-config.js"></script>
     <link rel="stylesheet" href="/demo/demo.css"/>
     <link rel="stylesheet" href="/css/pop-over/pop-over.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="/node_modules/prismjs/themes/prism.css"/>
+    <link rel="stylesheet" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>
 </head>
 
 <body ng-controller="exampleController">
@@ -30,25 +32,48 @@
                 <li> highlight </li>
             </ul>
         </div>
-        <code class="language-markup" data-lang="html" ng-bind-html="typeahead1"> 
-        </code>
-        <span ng-include="'typeahead1.tpl.html'"></span>
-        <button ng-click="click()"> Random food </button>        
+  <uib-tabset class="tabContainer">
+        <uib-tab index="0" heading="Demo">
+            <span ng-include="'typeahead1.tpl.html'"></span>
+            <button ng-click="click()"> Random food </button>   
+        </uib-tab>
+        <uib-tab index="1" heading="HTML">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead1"></code>
+        </uib-tab>
+        <uib-tab index="2" heading="JS">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead1Code"></code>
+        </uib-tab>
+  </uib-tabset>
+     
     </div>
 
     <div class="demoContent">
         <h2> Popover </h2>
         <div class="text"> Popover is a lightweight popover solution that does not rely on scope.</div>
-        <code class="language-markup" data-lang="html" ng-bind-html="popover1"> 
-        </code>
-        <span ng-include="'popover1.tpl.html'"></span>
-        <code class="language-markup" data-lang="html" ng-bind-html="popover2"> 
-        </code>
-        <div class="eventPopover" ng-include="'popover2.tpl.html'">
-        </div>
-        <code class="language-markup" data-lang="html" ng-bind-html="popover3"> 
-        </code>
-        <div class="eventPopover" ng-include="'popover3.tpl.html'"></div>
+        <uib-tabset class="tabContainer">
+            <uib-tab index="0" heading="Demo">
+                <span ng-include="'popover1.tpl.html'"></span>
+            </uib-tab>
+            <uib-tab index="1" heading="HTML">
+                <code class="language-markup" data-lang="html" ng-bind-html="popover1"> </code>
+            </uib-tab> 
+        </uib-tabset>
+        <uib-tabset  class="tabContainer">
+            <uib-tab index="0" heading="Demo">
+                <span  class="eventPopover" ng-include="'popover2.tpl.html'"></span>
+            </uib-tab>
+            <uib-tab index="1" heading="HTML">
+                <code class="language-markup" data-lang="html" ng-bind-html="popover2"> </code>
+            </uib-tab> 
+        </uib-tabset> 
+        <uib-tabset class="tabContainer">
+            <uib-tab index="0" heading="Demo">
+                <span  class="eventPopover" ng-include="'popover3.tpl.html'"></span>
+            </uib-tab>
+            <uib-tab index="1" heading="HTML">
+                <code class="language-markup" data-lang="html" ng-bind-html="popover3"> </code>
+            </uib-tab> 
+        </uib-tabset>               
     </div>
 
 </div>
