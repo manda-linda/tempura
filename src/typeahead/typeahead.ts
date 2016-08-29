@@ -518,7 +518,13 @@ class TypeaheadController {
 
       this.$element.bind('focus',  (evt:any) => {
           this.hasFocus = true;
+      
+          // @TODO (adasilva) not sure what this is about
           if (this.minLength === 0 && !this.modelCtrl.$viewValue) {
+            this.$timeout(() => {
+              this.getMatchesAsync(this.modelCtrl.$viewValue, evt);
+            }, 0);
+          } else if (this.modelCtrl.$viewValue && this.minLength <= this.modelCtrl.$viewValue.length) {
             this.$timeout(() => {
               this.getMatchesAsync(this.modelCtrl.$viewValue, evt);
             }, 0);

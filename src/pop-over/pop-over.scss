@@ -1,0 +1,140 @@
+/**
+
+POP OVER (never stop popping)
+**/
+$padding-base-vertical: 12px;
+$padding-base-horizontal: 12px;
+$brandBlack: #000;
+$brandWhite: #FFF;
+$font-family-base: Helvetica, arial, sans-serif;
+$font-size-small: 10px;
+
+$popOverBackgroundColor: $brandBlack;
+$popOverBackground: $popOverBackgroundColor;
+$popOverColor: $brandWhite;
+$popOverCaretSize: 6px; // use numbers divisible by 2 & 3
+$popOverCaretLargeSize: 12px;
+$popOverLightBackgroundColor: $brandWhite;
+$popOverLightBackground: $popOverLightBackgroundColor;
+$popOverLightColor: $brandBlack;
+
+.popOver-content {
+    display: block;
+    text-align: left;
+    font-family: $font-family-base;
+    font-size: $font-size-small;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+    border-radius: 4px;
+    transition: opacity 0.3s ease-in-out, z-index 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    white-space: normal;
+    top: 0;
+    left: 0;
+    color: $popOverColor;
+    background: $popOverBackground;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    padding: $padding-base-vertical $padding-base-horizontal;
+}
+
+.popOver-content.large {
+    padding: $padding-base-vertical * 2  $padding-base-horizontal * 2;
+}
+
+.popOver-content.light {
+    color: $popOverLightColor;
+    background: $popOverLightBackground;
+}
+
+.popOver-content > .caret {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    border: $popOverCaretSize solid $popOverBackgroundColor;
+    box-sizing: border-box;
+    box-shadow: -3px 3px 3px -3px rgba(0, 0, 0, 0.5);
+}
+
+.popOver-content.large > .caret {
+    border-width: $popOverCaretLargeSize;
+}
+
+.popOver-content.light > .caret {
+    border-color: $popOverLightBackgroundColor;
+}
+
+
+.popOver-contentInner {
+    display: block;
+    position: relative;
+}
+.popOver-content.active {
+    visibility: visible;
+    opacity: 1;
+    z-index: 100;
+}
+
+.popOver-content.top {
+    margin-bottom: 2 * $popOverCaretSize;
+    & > .caret {
+        margin-bottom: (-1 * $popOverCaretSize/2) - 2;
+        transform: rotate(-45deg);
+    }
+}
+
+.popOver-content.large.top {
+    margin-bottom: 2 * $popOverCaretLargeSize;
+    & > .caret {
+        margin-bottom: (-1 * $popOverCaretLargeSize/2) - 2;
+    }
+}
+
+.popOver-content.bottom {
+    margin-top: 2 * $popOverCaretSize;
+    & > .caret {
+        margin-top: (-1 * $popOverCaretSize/2) - 2;
+        transform: rotate(-225deg);
+    }
+}
+
+.popOver-content.large.bottom {
+    margin-top: 2 * $popOverCaretLargeSize;
+    & > .caret {
+        margin-top: (-1 * $popOverCaretLargeSize/2) - 2;
+    }
+}
+
+.popOver-content.left {
+    & > .caret {
+        margin-right: (-1 * $popOverCaretSize/2) - 2;
+        transform: rotate(225deg);
+    }
+}
+
+.popOver-content.large.left {
+    & > .caret {
+        margin-right: (-1 * $popOverCaretLargeSize/2) - 2;
+    }
+}
+
+.popOver-content.right {
+    & > .caret {
+        margin-left: (-1 * $popOverCaretSize/2) - 2;
+        transform: rotate(45deg);
+    }
+}
+
+.popOver-content.large.right {
+    & > .caret {
+        margin-left: (-1 * $popOverCaretLargeSize/2) - 2;
+    }
+}
+
+
+
+

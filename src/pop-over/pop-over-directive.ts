@@ -1,7 +1,6 @@
-///<reference path="../../typings/index.d.ts"/>
+import '../utility/position';
 
-
-export class PopOver implements ng.IDirective {
+class PopOver implements ng.IDirective {
 
     public controller: any = PopOverController;
     public restrict: string = 'A';
@@ -38,7 +37,8 @@ class PopOverController {
         '$window',
         '$document',
         '$element',
-        '$attrs'];
+        '$attrs',
+        'tempuraPosition'];
     public static positions: any = {
         bottom: 'bottom',
         left: 'left',
@@ -73,7 +73,8 @@ class PopOverController {
                  private $window,
                  private $document,
                  private $element,
-                 private $attrs) {
+                 private $attrs,
+                 private tempuraPosition) {
 
         // remove events
         this.$scope.$on('$destroy', () => {
@@ -188,7 +189,6 @@ class PopOverController {
 
         this.popOverElement.addEventListener('mouseover', this.cancelHideTimer);
         this.popOverElement.addEventListener('mouseout', this.hidePopOver);
-
     }
 
     private removeEventListeners (): void {
@@ -212,65 +212,23 @@ class PopOverController {
         this.popOverElement.removeEventListener('mouseout', this.hidePopOver);
     }
 
-    private getReferencePoints (event?: any): any {
-
-        let elemBounds: any = this.$element[0].getBoundingClientRect(),
-            bodyBounds: any = this.$document[0].body.getBoundingClientRect(),
-            poBounds: any = this.popOverElement.getBoundingClientRect(),
-            useMouseTarget = this.$attrs.popOverUseMouseTarget === 'true',
-            _leftPos: number,
-            _topPos: number;
-
-        if (useMouseTarget) {
-            _leftPos = event.clientX - bodyBounds.left;
-            _topPos = event.clientY - bodyBounds.top;
-        } else {
-            // center of target element
-            _leftPos = elemBounds.left - bodyBounds.left + (elemBounds.width / 2);
-            _topPos = elemBounds.top - bodyBounds.top + (elemBounds.height / 2);
-        }
-
-        switch (this.position) {
-            case PopOverController.positions.top:
-                _leftPos -= poBounds.width / 2;
-                _topPos -= poBounds.height + (elemBounds.height / 2);
-                break;
-            case PopOverController.positions.left:
-                _leftPos -= poBounds.width;
-                _topPos -= poBounds.height / 2;
-                break;
-            case PopOverController.positions.right:
-                _topPos -= poBounds.height / 2;
-                break;
-            default: // bottom
-                _leftPos -= poBounds.width / 2;
-                _topPos += (elemBounds.height / 2);
-        }
-
-        return {
-            left: _leftPos,
-            top: _topPos
-        };
-
-    }
-
     private setPopOverPosition (event?: any): void {
-
         this.position = this.$attrs.position || PopOverController.positions.bottom; // bottom is default
 
-        let poBounds: any = this.popOverElement.getBoundingClientRect(),
-            screenWidth = this.$document[0].documentElement.clientWidth,
-            verticalOffset = parseInt(this.$attrs.popOverVerticalOffset, 10) || 0,
-            horizontalOffset = parseInt(this.$attrs.popOverHorizontalOffset, 10) || 10;
-
-        let referencePoints = this.getReferencePoints(event);
+        let verticalOffset = parseInt(this.$attrs.popOverVerticalOffset, 10) || 0,
+            horizontalOffset = parseInt(this.$attrs.popOverHorizontalOffset, 10) || 10,
+            useMouseTarget = this.$attrs.popOverUseMouseTarget === 'true',
+            elementPosition = useMouseTarget ? 
+                                this.tempuraPosition.eventPosition(event) : 
+                                this.tempuraPosition.position(this.$element),
+            // use for popoverPosition width/height only, havent set correct position yet
+            popoverPosition = this.tempuraPosition.position(this.popOverElement),
+            screenWidth = this.$document[0].documentElement.clientWidth;
 
         // force left and right to use top if offscreen
-        if ((this.position === PopOverController.positions.right && referencePoints.left + poBounds.width > screenWidth) ||
-            (this.position === PopOverController.positions.left && referencePoints.left - poBounds.width < 0 )) {
+        if ((this.position === PopOverController.positions.right && elementPosition.left + popoverPosition.width > screenWidth) ||
+            (this.position === PopOverController.positions.left && elementPosition.left - popoverPosition.width < 0 )) {
             this.position = PopOverController.positions.bottom;
-            // redefine position points
-            referencePoints = this.getReferencePoints(event);
         }
 
 
@@ -283,16 +241,17 @@ class PopOverController {
 
             case PopOverController.positions.top:
             case  PopOverController.positions.bottom:
-                let _left: number = referencePoints.left;
+                let horizontalAlign = (popoverPosition.width - elementPosition.width)/2, 
+                    _left: number = elementPosition.left - horizontalAlign;
                 // if element would be off screen then set to 0
                 _left = (_left < 0) ? 0 : _left;
 
                 top = (this.position === PopOverController.positions.top ?
-                        (referencePoints.top - verticalOffset) :
-                        (referencePoints.top + verticalOffset)) + 'px';
+                        (elementPosition.top - popoverPosition.height - verticalOffset) :
+                        (elementPosition.top + elementPosition.height + verticalOffset)) + 'px';
 
                 // check right overflow
-                if (_left + poBounds.width > screenWidth) {
+                if (_left + popoverPosition.width > screenWidth) {
                     left = 'auto';
                     right = '0';
                 } else {
@@ -302,10 +261,12 @@ class PopOverController {
                 break;
             case PopOverController.positions.right :
             case PopOverController.positions.left:
+                let verticalAlign = (popoverPosition.height - elementPosition.height)/2,
+                    _top: number = elementPosition.top - verticalAlign;
                 left = (this.position === PopOverController.positions.left ?
-                    referencePoints.left - horizontalOffset :
-                    referencePoints.left + horizontalOffset) + 'px';
-                let _top: number = referencePoints.top;
+                    elementPosition.left - popoverPosition.width - horizontalOffset :
+                    elementPosition.left + elementPosition.width + horizontalOffset) + 'px';
+
                 top = (_top < 0) ? '0' : _top + 'px';
                 break;
             default:
@@ -317,7 +278,6 @@ class PopOverController {
         poStyle.left = left;
         poStyle.right = right;
         poStyle.top = top;
-
 
         // first remove any lingering classes
         for (let pos in PopOverController.positions) {
@@ -332,7 +292,7 @@ class PopOverController {
         let caret = this.popOverElement.querySelectorAll('.caret')[0],
             useMouseTarget = this.$attrs.popOverUseMouseTarget === 'true',
             caretBounds = caret.getBoundingClientRect();
-
+        
         if (!caret) {
             return;
         }
@@ -354,9 +314,9 @@ class PopOverController {
 
             caret.style.left = _left + 'px';
             if (this.position === PopOverController.positions.top) {
-                caret.style.bottom = (-1 * caretBounds.height ) + 'px';
-            } else {
-                caret.style.top = (-1 * caretBounds.height ) + 'px';
+                caret.style.bottom = '0';
+            } else { // some fancy math
+                caret.style.top = '0';
             }
 
         } else {
@@ -365,19 +325,19 @@ class PopOverController {
                 poVerticalCenter = poBounds.top + (poBounds.height / 2),
                 elemVerticalCenter = elemBounds.top + (elemBounds.height / 2);
 
-            if (poVerticalCenter === elemVerticalCenter || useMouseTarget) {
+   //         if (poVerticalCenter === elemVerticalCenter || useMouseTarget) {
                 // just subtract the caret height
                 _top += (poBounds.height / 2);
-
-            } else {
-                _top += (elemBounds.top - poBounds.top) + (elemBounds.height / 2);
-            }
+//@TODO (adasilva) I don't know when we want to go to the else case 
+    //        } else {
+    //            _top += (elemBounds.top - poBounds.top) + (elemBounds.height / 2);
+    //        }
 
             caret.style.top = _top + 'px';
             if (this.position === PopOverController.positions.right) {
-                caret.style.left = (-1 * caretBounds.width ) + 'px';
+                caret.style.left = '0';
             } else {
-                caret.style.right = (-1 * caretBounds.width ) + 'px';
+                caret.style.right = '0';
             }
 
         }
@@ -491,7 +451,6 @@ class PopOverController {
             this.hidePopOverHandler(event);
         }, timeout);
     };
-
     private cancelHideTimer = (): void => {
         clearTimeout(this.hidePopOverTimer);
         this.hidePopOverTimer = undefined;
@@ -503,6 +462,5 @@ class PopOverController {
     }
 
 }
-
 var tempura = angular.module('tempura.popOver', ['tempura.utility.position'])
     .directive('ghsPopOver', PopOver.instance);

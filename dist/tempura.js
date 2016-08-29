@@ -985,6 +985,8 @@ $__System.register('a', ['3', '6', '4', '7', '9'], function (exports_1, context_
                     this.initEventBindings = function () {
                         //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
                         _this.$element.on('keydown', function (evt) {
+                            console.log(_this);
+                            console.log(evt);
                             //typeahead is open and an "interesting" key was pressed
                             if (_this.matches.length === 0 || TypeaheadController.HOT_KEYS.indexOf(evt.which) === -1) {
                                 return;
@@ -1033,7 +1035,12 @@ $__System.register('a', ['3', '6', '4', '7', '9'], function (exports_1, context_
                         });
                         _this.$element.bind('focus', function (evt) {
                             _this.hasFocus = true;
+                            // @TODO (adasilva) not sure what this is about
                             if (_this.minLength === 0 && !_this.modelCtrl.$viewValue) {
+                                _this.$timeout(function () {
+                                    _this.getMatchesAsync(_this.modelCtrl.$viewValue, evt);
+                                }, 0);
+                            } else if (_this.modelCtrl.$viewValue && _this.minLength <= _this.modelCtrl.$viewValue.length) {
                                 _this.$timeout(function () {
                                     _this.getMatchesAsync(_this.modelCtrl.$viewValue, evt);
                                 }, 0);

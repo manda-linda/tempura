@@ -64,6 +64,33 @@ export class TempuraPosition {
             left: Math.round(elemOffset.left - parentOffset.left)
           };
     }
+
+    public eventPosition (event?: any): IBounds {
+        let bodyBounds: any = this.offset(this.$document[0].body),
+            target = event.target,
+            _top = event.clientY,
+            _left = event.clientX,
+            _width = 0,
+            _height = 0;
+
+            // no mouse position, use target elem position
+            if((!_top || !_left) && target) {
+                let targetPos = this.position(target);
+                _top = targetPos.top;
+                _left = targetPos.left;
+                _width = targetPos.width;
+                _height = targetPos.height;
+            } else {
+              _top =  Math.round(_top + (this.$window.pageYOffset || this.$document[0].documentElement.scrollTop));
+              _left =  Math.round(_left + (this.$window.pageXOffset || this.$document[0].documentElement.scrollLeft));
+            }
+        return {
+          width: _width,
+          height: _height,
+          top:  _top,
+          left:  _left
+        }
+    }
 }
 
 
