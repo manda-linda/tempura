@@ -15,7 +15,8 @@ export class TypeaheadPopup implements ng.IDirective {
         select: '&',
         assignIsOpen: '&',
         debounce: '&',
-        templateUrl: '@'
+        templateUrl: '@',
+        reload:'&'
   };
   public replace: boolean = true;
   public templateUrl = (element, attrs) => {
@@ -26,8 +27,6 @@ export class TypeaheadPopup implements ng.IDirective {
   };
 
   public link = (scope, element, attrs) => {
-        scope.templateUrl = attrs.templateUrl;
-
         scope.isOpen = function() {
           var isDropdownOpen = scope.matches.length > 0;
           scope.assignIsOpen({ isOpen: isDropdownOpen });
@@ -41,6 +40,17 @@ export class TypeaheadPopup implements ng.IDirective {
         scope.selectActive = function(matchIdx) {
           scope.active = matchIdx;
         };
+
+        scope.forceReload = function(value){
+          var debounce = scope.debounce();
+          if (angular.isNumber(debounce) || angular.isObject(debounce)) {
+            this.$$debounce(function() {
+              scope.reload({value: value});
+            }, angular.isNumber(debounce) ? debounce : debounce['default']);
+          } else {
+            scope.reload({value: value});
+          }          
+        }
 
         scope.selectMatch = function(activeIdx, evt) {
           var debounce = scope.debounce();

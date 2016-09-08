@@ -44,7 +44,23 @@
             <code class="language-markup" data-lang="html" ng-bind-html="typeahead1Code"></code>
         </uib-tab>
   </uib-tabset>
-     
+
+   <uib-tabset class="tabContainer">
+        <uib-tab index="0" heading="Demo">
+           <div class="text"> The typeahead reload function is exposed to matches so that matches can trigger updates.</div>
+            <span ng-include="'typeahead2.tpl.html'"></span>
+        </uib-tab>
+        <uib-tab index="1" heading="HTML">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead2"></code>
+        </uib-tab>
+        <uib-tab index="2" heading="Custom Match TPL">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeaheadmatch"></code>
+        </uib-tab>        
+        <uib-tab index="3" heading="JS">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead2Code"></code>
+        </uib-tab>
+  </uib-tabset>
+
     </div>
 
     <div class="demoContent">

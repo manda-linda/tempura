@@ -91,6 +91,7 @@ class TypeaheadController {
     private isLoading: boolean;
     private focusFirst: boolean;
     private selectOnExact: boolean;
+    private exposeReload:(fn:()=>void) => void;
 
 // private instance vars
     private parsedModel;
@@ -247,15 +248,15 @@ class TypeaheadController {
     };
 
 
-    private getMatchesAsync = (inputValue, evt?: ng.IAngularEvent) => {
+    public getMatchesAsync = (inputValue, evt?: ng.IAngularEvent) => {
       var locals = {$viewValue: inputValue};
       this.isLoading = true;
       this.noResults = false;
       this.$q.when(this.parserResult.source(this.$scope, locals)).then((matches) => {
         //it might happen that several async queries were in progress if a user were typing fast
         //but we are interested only in responses that correspond to the current view value
-        var onCurrentRequest = inputValue === this.modelCtrl.$viewValue;
-        if (onCurrentRequest && this.hasFocus) {
+        var onCurrentRequest = (inputValue === this.modelCtrl.$viewValue);
+        if (onCurrentRequest) {
           if (matches && matches.length > 0) {
             this.activeIdx = this.focusFirst ? 0 : -1;
             this.noResults = false;
@@ -414,7 +415,8 @@ class TypeaheadController {
           query: 'taVm.query',
           position: 'taVm.position',
           'assign-is-open': 'taVm.assignIsOpen(isOpen)',
-          debounce: 'taVm.debounceUpdate'
+          debounce: 'taVm.debounceUpdate',
+          reload: 'taVm.getMatchesAsync(value, evt)'
         });
         if (angular.isDefined(this.typeaheadTemplateUrl)) {
           this.popUpEl.attr('template-url', this.typeaheadTemplateUrl);

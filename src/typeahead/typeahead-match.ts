@@ -19,7 +19,8 @@ export class TypeaheadMatch implements ng.IDirective {
   public scope: any = {
         index: '<',
         match: '<',
-        query: '<'
+        query: '<',
+        reload: '&'
   };
   public static instance(): ng.IDirective {
       const directive = ($templateRequest, $compile, $parse, $templateCache) => new TypeaheadMatch($templateRequest, $compile, $parse, $templateCache);
