@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head> 
+    <title>Get Tempura</title>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.38/system.js"></script>
+    <!-- build:js -->
+    <script src="/node_modules/systemjs/dist/system.js"></script>
     <script src="/config/systemjs-config.js"></script>
-    <link rel="stylesheet" href="/demo/demo.css"/>
-    <link rel="stylesheet" href="/css/pop-over/pop-over.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="/node_modules/prismjs/themes/prism.css"/>
-    <link rel="stylesheet" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>
+    <script>
+    System.import('/demo/bootstrapper');
+    </script>
+    <!-- endbuild -->
+    <script inline src="/dist/tempura-templates-min.js"></script>
+
+    <link inline rel="stylesheet" href="/demo/demo.css"/>
+    <link inline rel="stylesheet" href="/dist/css/tempura.min.css"/>
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link inline rel="stylesheet" href="/node_modules/prismjs/themes/prism.css"/>
+    <link inline rel="stylesheet" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>
 </head>
 
 <body ng-controller="exampleController">
-<div id="appBackground"></div>
+<div class="title">
+    <h1>Tempura</h1>
+    <div>a collection of angular components and tools developed or modified by GrubHub. 
+    Some of them are original and others are customizations of Twitter Bootstraps. </div>
+<a class="btn btn-primary btn-md" id="githubButton" href="https://github.com/manda-linda/tempura" role="button">View on Github</a>
+<a class="btn btn-primary btn-md" id="githubButton" href="https://github.com/manda-linda/tempura/archive/master.zip" role="button">.zip</a>
+</div>
 <div class="content">
-    <h1 class="title">Tempura Demo</h1>
-    <div class="text">a collection of angular components and tools developed or modified by GrubHub. 
-        Some of them are original and others are customizations of Twitter Bootstraps. </div>
-    
+
     <div class="demoContent">
         <h2> Typeahead </h2>
         <div class="text"> Typeahead is a modified version of Angular Bootstraps' typeahead component with some new features including: 
@@ -93,9 +105,6 @@
     </div>
 
 </div>
-<script>
-    System.import('/demo/bootstrapper');
-    </script>
 </body>
 
 

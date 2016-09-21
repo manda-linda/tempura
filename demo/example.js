@@ -1,23 +1,30 @@
-import typeahead1 from 'typeahead1.tpl.html!text';
-import typeahead2 from 'typeahead2.tpl.html!text';
-import typeaheadmatch from 'typeaheadMatchReload.tpl.html!text';
+import typeahead1 from './typeahead1.tpl.html!text';
+import typeahead2 from './typeahead2.tpl.html!text';
+import typeaheadmatch from './typeaheadMatchReload.tpl.html!text';
 
-import popover1 from 'popover1.tpl.html!text';
-import popover2 from 'popover2.tpl.html!text';
-import popover3 from 'popover3.tpl.html!text';
+import popover1 from './popover1.tpl.html!text';
+import popover2 from './popover2.tpl.html!text';
+import popover3 from './popover3.tpl.html!text';
 
-import prism from 'node_modules/prismjs/prism';
+import prism from '../node_modules/prismjs/prism';
 
 angular.module('examples', [])
 
-.controller("exampleController",['$scope', '$sce', function($scope, $sce){
-    $scope.typeahead1 = $sce.trustAsHtml(prism.highlight(typeahead1, prism.languages.markup));
-    $scope.typeahead2 = $sce.trustAsHtml(prism.highlight(typeahead2, prism.languages.markup));
-    $scope.typeaheadmatch = $sce.trustAsHtml(prism.highlight(typeaheadmatch, prism.languages.markup));
-    $scope.popover1 = $sce.trustAsHtml(prism.highlight(popover1, prism.languages.markup));
-    $scope.popover2 = $sce.trustAsHtml(prism.highlight(popover2, prism.languages.markup));
-    $scope.popover3 = $sce.trustAsHtml(prism.highlight(popover3, prism.languages.markup));
-   
+.controller("exampleController",['$scope', '$sce', '$templateCache', function($scope, $sce, $templateCache){
+    var templates = {
+        'typeahead1': typeahead1,
+        'typeahead2': typeahead2,
+        'typeaheadmatch': typeaheadmatch,
+        'popover1': popover1,
+        'popover2': popover2,
+        'popover3': popover3
+    };
+
+    for(var key in templates) {
+        $scope[key]= $sce.trustAsHtml(prism.highlight(templates[key], prism.languages.markup));
+        $templateCache.put(key+'.tpl.html' , templates[key]);
+    }
+
     $scope.exampleModel = {
         value: ""
     };

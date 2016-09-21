@@ -21,48 +21,52 @@ button {
     margin: 5px;
     border-style: solid;
     background: transparent;
-    border-color: #339999;
-    color: #33999B;
+    border-color: #0f3d82;
+    color: #0f3d82;
     transition-property: background, border-color;
     transition-duration: 0.2s;
     transition-timing-function: ease;
 }
 
+h1 {
+    font-size: 42px !important;
+}
+
 input {
     padding: 5px;
     margin: 5px;
-    border-color: #339999;
-    color: #33999B;
+    border-color: #0f3d82;
+    color: #0f3d82;
 }
 
 button:hover, button:focus {
     color:white;
-    background-color: #339999;
+    background-color: #0f3d82;
 }
 
 .text {
+    color: #0f3d82;
     background-color: #EFEFF3;
     margin: 10px;
     padding: 15px
 }
 
-#appBackground{
-    background-image: url('/demo/assets/tempura-white.jpg');  
-    background-repeat: repeat-y;
-    background-size: 152px 138px;
-    display: block;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index:-1;
+#githubButton {
+    margin-top: 15px;
+    background-color: white;
+    color: black;
+}
+
+#githubButton:hover {
+    margin-top: 15px;
+    background-color: #EFEFF3;
+    color: black;
 }
 
 .content {
     background-color: rgba(255, 255, 255, .6);
     height: 100%;
-    padding: 0 7%;
+    padding: 0 4%;
 }
 
 .demoContent {
@@ -71,17 +75,23 @@ button:hover, button:focus {
 }
 
 .title {
+    color: white;
+    background: #3e6db3;
+    width:100%;
+    padding: 20px 4%;
+}
+.title h1 {
     padding: 20px 0;
     border-bottom: 1px solid;
 }
 .dropdown-menu .active {
     color:white;
-    background-color: #339999;    
+    background-color: #0f3d82;    
 }
 
 .dropdown-menu {
     position: absolute;
-    color: #33999B;
+    color: #0f3d82;
     margin-top: 0;
     background-color: white;
     max-width: 250px;
@@ -94,7 +104,16 @@ button:hover, button:focus {
 
 .dropdown-menu li {
     padding: 10px;
-    color: #33999B;
+    color: #0f3d82;
+}
+
+.content .dropdown-menu>.active>a {
+    background-color: #0f3d82;
+}
+
+.content h2 {
+    margin-bottom: 20px;
+    color: #3e6db3;
 }
 
 .eventPopover div{
@@ -102,8 +121,8 @@ button:hover, button:focus {
     padding: 30px;
     margin: 15px;
     border: solid 2px;
-    border-color: #339999;
-    color: #33999B;
+    border-color: #0f3d82;
+    color: #0f3d82;
 }
 
 .language-markup .tag {
