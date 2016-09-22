@@ -1,111 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head> 
-    <title>Get Tempura</title>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Tempura : a collection of angular components and tools developed or modified by GrubHub.      Some of them are original and others are customizations of Twitter Bootstraps.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Tempura</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/manda-linda/tempura">View on GitHub</a>
+
+          <h1 id="project_title">Tempura</h1>
+          <h2 id="project_tagline">a collection of angular components and tools developed or modified by GrubHub.      Some of them are original and others are customizations of Twitter Bootstraps.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/manda-linda/tempura/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/manda-linda/tempura/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a id="typeahead" class="anchor" href="#typeahead" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Typeahead.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
+
+<h3>
+<a id="popover" class="anchor" href="#popover" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Popover</h3>
+
+<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Tempura maintained by <a href="https://github.com/manda-linda">manda-linda</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
     
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <!-- build:js -->
-    <script src="/node_modules/systemjs/dist/system.js"></script>
-    <script src="/config/systemjs-config.js"></script>
-    <script>
-    System.import('/demo/bootstrapper');
-    </script>
-    <!-- endbuild -->
-    <script inline src="/dist/tempura-templates-min.js"></script>
 
-    <link inline rel="stylesheet" href="/demo/demo.css"/>
-    <link inline rel="stylesheet" href="/dist/css/tempura.min.css"/>
-    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link inline rel="stylesheet" href="/node_modules/prismjs/themes/prism.css"/>
-    <link inline rel="stylesheet" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>
-</head>
-
-<body ng-controller="exampleController">
-<div class="title">
-    <h1>Tempura</h1>
-    <div>a collection of angular components and tools developed or modified by GrubHub. 
-    Some of them are original and others are customizations of Twitter Bootstraps. </div>
-<a class="btn btn-primary btn-md" id="githubButton" href="https://github.com/manda-linda/tempura" role="button">View on Github</a>
-<a class="btn btn-primary btn-md" id="githubButton" href="https://github.com/manda-linda/tempura/archive/master.zip" role="button">.zip</a>
-</div>
-<div class="content">
-
-    <div class="demoContent">
-        <h2> Typeahead </h2>
-        <div class="text"> Typeahead is a modified version of Angular Bootstraps' typeahead component with some new features including: 
-            <ul> 
-                <li>touch screen support</li>
-                <li>open on focus</li>
-                <li>list refreshing</li>
-            </ul>
-            and removing: 
-            <ul>
-                <li> hint </li>
-                <li> highlight </li>
-            </ul>
-        </div>
-  <uib-tabset class="tabContainer">
-        <uib-tab index="0" heading="Demo">
-            <span ng-include="'typeahead1.tpl.html'"></span>
-            <button ng-click="click()"> Random food </button>   
-        </uib-tab>
-        <uib-tab index="1" heading="HTML">
-            <code class="language-markup" data-lang="html" ng-bind-html="typeahead1"></code>
-        </uib-tab>
-        <uib-tab index="2" heading="JS">
-            <code class="language-markup" data-lang="html" ng-bind-html="typeahead1Code"></code>
-        </uib-tab>
-  </uib-tabset>
-
-   <uib-tabset class="tabContainer">
-        <uib-tab index="0" heading="Demo">
-           <div class="text"> The typeahead reload function is exposed to matches so that matches can trigger updates.</div>
-            <span ng-include="'typeahead2.tpl.html'"></span>
-        </uib-tab>
-        <uib-tab index="1" heading="HTML">
-            <code class="language-markup" data-lang="html" ng-bind-html="typeahead2"></code>
-        </uib-tab>
-        <uib-tab index="2" heading="Custom Match TPL">
-            <code class="language-markup" data-lang="html" ng-bind-html="typeaheadmatch"></code>
-        </uib-tab>        
-        <uib-tab index="3" heading="JS">
-            <code class="language-markup" data-lang="html" ng-bind-html="typeahead2Code"></code>
-        </uib-tab>
-  </uib-tabset>
-
-    </div>
-
-    <div class="demoContent">
-        <h2> Popover </h2>
-        <div class="text"> Popover is a lightweight popover solution that does not rely on scope.</div>
-        <uib-tabset class="tabContainer">
-            <uib-tab index="0" heading="Demo">
-                <span ng-include="'popover1.tpl.html'"></span>
-            </uib-tab>
-            <uib-tab index="1" heading="HTML">
-                <code class="language-markup" data-lang="html" ng-bind-html="popover1"> </code>
-            </uib-tab> 
-        </uib-tabset>
-        <uib-tabset  class="tabContainer">
-            <uib-tab index="0" heading="Demo">
-                <span  class="eventPopover" ng-include="'popover2.tpl.html'"></span>
-            </uib-tab>
-            <uib-tab index="1" heading="HTML">
-                <code class="language-markup" data-lang="html" ng-bind-html="popover2"> </code>
-            </uib-tab> 
-        </uib-tabset> 
-        <uib-tabset class="tabContainer">
-            <uib-tab index="0" heading="Demo">
-                <span  class="eventPopover" ng-include="'popover3.tpl.html'"></span>
-            </uib-tab>
-            <uib-tab index="1" heading="HTML">
-                <code class="language-markup" data-lang="html" ng-bind-html="popover3"> </code>
-            </uib-tab> 
-        </uib-tabset>               
-    </div>
-
-</div>
-</body>
-
-
+  </body>
 </html>
