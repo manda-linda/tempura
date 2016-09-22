@@ -1,6 +1,6 @@
 import typeahead1 from './typeahead1.tpl.html!text';
 import typeahead2 from './typeahead2.tpl.html!text';
-import typeaheadmatch from './typeaheadMatchReload.tpl.html!text';
+import typeaheadMatchReload from './typeaheadMatchReload.tpl.html!text';
 
 import popover1 from './popover1.tpl.html!text';
 import popover2 from './popover2.tpl.html!text';
@@ -14,7 +14,7 @@ angular.module('examples', [])
     var templates = {
         'typeahead1': typeahead1,
         'typeahead2': typeahead2,
-        'typeaheadmatch': typeaheadmatch,
+        'typeaheadMatchReload': typeaheadMatchReload,
         'popover1': popover1,
         'popover2': popover2,
         'popover3': popover3
@@ -30,6 +30,7 @@ angular.module('examples', [])
     };
 
     $scope.callBack = function($viewValue) {
+        console.log("typeahead select");
         var results = [];
         for( var i = 0 ; i < food.dishes.length; i++) {
             if(food.dishes[i].toLowerCase().indexOf($viewValue.toLowerCase()) > -1){

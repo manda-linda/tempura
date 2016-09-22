@@ -61,15 +61,17 @@ gulp.task('build', ['clean', 'test', 'sass'], function() {
 });
 
 gulp.task('build-index', function() {
-    return gulp.src('./index.html')
-        .pipe(inlinesource())
+    return gulp.src('./build-index.html')
+        .pipe(inlinesource({
+            base: '../tempura/'
+          }))
         .pipe(HTMLReplace({
-          'js': 'demo.js'
+          'js': 'javascript/demo.js'
         }))
         .pipe(rename({
             basename: "index"
         }))
-        .pipe(gulp.dest('./docs'));
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('serve', ['sass', 'sass:watch'], function() {

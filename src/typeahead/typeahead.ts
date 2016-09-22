@@ -104,6 +104,9 @@ class TypeaheadController {
     private popUpEl: ng.IRootElementService;
     private timeoutPromise: any; // stacked timeout calls that might need to be cancelled
     private touchMove: boolean;
+    private debounceSelect;
+    private debounceIndex: number;
+    private debounceEvt;
 
     public debounceUpdate;
     public matches: any[];
@@ -149,8 +152,13 @@ class TypeaheadController {
       this.modelCtrl = _modelCtrl;
       this.ngModelOptions = _ngModelOptions;
 
-      this.debounceUpdate = this.modelCtrl.$options && this.$parse(this.modelCtrl.$options.debounce)(this.$scope);
+      this.debounceUpdate = this.modelCtrl.$options;
 
+      this.debounceSelect = (angular.isNumber(this.debounceUpdate) || angular.isObject(this.debounceUpdate)) ?
+                                  this.$$debounce(() => {
+                                    this.select(this.debounceIndex, this.debounceEvt);
+                                  }, angular.isNumber(this.debounceUpdate) ? this.debounceUpdate : this.debounceUpdate['default']) :
+                                  angular.noop;
       //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
       //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
       this.modelCtrl.$parsers.unshift((inputValue) => {
@@ -283,9 +291,9 @@ class TypeaheadController {
             //Select the single remaining option if user input matches
             if (this.selectOnExact && this.matches.length === 1 && this.inputIsExactMatch(inputValue, 0)) {
               if (angular.isNumber(this.debounceUpdate) || angular.isObject(this.debounceUpdate)) {
-                this.$$debounce(() => {
-                  this.select(0, evt);
-                }, angular.isNumber(this.debounceUpdate) ? this.debounceUpdate : this.debounceUpdate['default']);
+                  this.debounceIndex = 0;
+                  this.debounceEvt = evt;
+                  this.debounceSelect();
               } else {
                 this.select(0, evt);
               }
@@ -304,7 +312,6 @@ class TypeaheadController {
         this.noResults = true;
       });
     };
-
 
     private $setModelValue = (scope, newValue) => {
               if (angular.isFunction(this.parsedModel(this.$scope)) &&
@@ -369,7 +376,7 @@ class TypeaheadController {
     }, this.eventDebounceTime);
 
     private recalculatePosition = () => {
-      this.position = this.appendToBody ? this.tempuraPosition.offset(this.$element) : this.tempuraPosition.position(this.$element);
+      this.position = this.appendToBody ? this.tempuraPosition.offset(this.$element) : this.tempuraPosition.positionRelative(this.$element);
       this.position.top += this.$element.prop('offsetHeight');
     }
 
@@ -507,9 +514,9 @@ class TypeaheadController {
             if (shouldSelectBoolean) {
               this.$scope.$apply(() => {
                 if (angular.isNumber(this.debounceUpdate) || angular.isObject(this.debounceUpdate)) {
-                  this.$$debounce( () => {
-                    this.select(this.activeIdx, evt);
-                  }, angular.isNumber(this.debounceUpdate) ? this.debounceUpdate : this.debounceUpdate['default']);
+                    this.debounceIndex = this.activeIdx;
+                    this.debounceEvt = evt;
+                    this.debounceSelect();
                 } else {
                   this.select(this.activeIdx, evt);
                 }
@@ -540,7 +547,7 @@ class TypeaheadController {
             if (angular.isObject(this.debounceUpdate) && angular.isNumber(this.debounceUpdate.blur)) {
               this.$$debounce(function() {
                 this.select(this.activeIdx, evt);
-              }, this.debounceUpdate.blur);
+              }, this.debounceUpdate.blur)();
             } else {
               this.select(this.activeIdx, evt);
             }

@@ -49,6 +49,19 @@ export class TempuraPosition {
           elem = this.getRawNode(elem);
 
           let elemOffset = this.offset(elem);
+
+          return {
+            width: Math.round(angular.isNumber(elemOffset.width) ? elemOffset.width : elem.offsetWidth),
+            height: Math.round(angular.isNumber(elemOffset.height) ? elemOffset.height : elem.offsetHeight),
+            top: Math.round(elemOffset.top),
+            left: Math.round(elemOffset.left)
+          };
+    }
+
+    public positionRelative (elem: HTMLScriptElement): IBounds {
+          elem = this.getRawNode(elem);
+
+          let elemOffset = this.offset(elem);
           let parent = this.offsetParent(elem);
           let parentOffset = {top: 0, left: 0};
 

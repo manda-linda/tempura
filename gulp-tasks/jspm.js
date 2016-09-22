@@ -10,7 +10,7 @@ module.exports = function(){
         bundleSfx: true,
         bundles: [
             { src: 'src/app.ts', dst: 'dist/tempura.js' },
-            { src: 'demo/bootstrapper.js', dst: 'docs/demo.js' }
+            { src: 'demo/bootstrapper.js', dst: 'javascript/demo.js' }
         ]
     })
     .pipe(gulp.dest('./'));

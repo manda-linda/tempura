@@ -13,7 +13,7 @@ System.config({
             "src/utility/debounce.ts",
             "src/utility/position.ts"
         ],
-        "docs/demo.js": [
+        "javascript/demo.js": [
             "demo/bootstrapper.js",
             "demo/example.js",
             "demo/popover1.tpl.html!github:systemjs/plugin-text@0.0.7.js",

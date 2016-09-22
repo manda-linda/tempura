@@ -14,7 +14,7 @@ export class TypeaheadPopup implements ng.IDirective {
         moveInProgress: '<',
         select: '&',
         assignIsOpen: '&',
-        debounce: '&',
+        debounce: '<',
         templateUrl: '@',
         reload:'&'
   };
@@ -27,37 +27,53 @@ export class TypeaheadPopup implements ng.IDirective {
   };
 
   public link = (scope, element, attrs) => {
-        scope.isOpen = function() {
+        let debounceReload,
+            debounceValue,
+            debounceSelect,
+            debounceIndex,
+            debounceEvt;
+        scope.isOpen = () => {
           var isDropdownOpen = scope.matches.length > 0;
           scope.assignIsOpen({ isOpen: isDropdownOpen });
           return isDropdownOpen;
         };
 
-        scope.isActive = function(matchIdx) {
+        scope.isActive = (matchIdx) => {
           return scope.active === matchIdx;
         };
 
-        scope.selectActive = function(matchIdx) {
+        scope.selectActive = (matchIdx) => {
           scope.active = matchIdx;
         };
 
-        scope.forceReload = function(value){
-          var debounce = scope.debounce();
-          if (angular.isNumber(debounce) || angular.isObject(debounce)) {
-            this.$$debounce(function() {
-              scope.reload({value: value});
-            }, angular.isNumber(debounce) ? debounce : debounce['default']);
+        scope.forceReload = (value) => {
+          var debounce = scope.debounce;
+          debounceValue = value;
+          if (debounceReload) {
+            debounceReload();
+          } else if (angular.isNumber(debounce) || angular.isObject(debounce)) {
+              debounceReload = this.$$debounce(() => {
+                scope.reload({value: debounceValue});
+              }, angular.isNumber(debounce) ? debounce : debounce['default']);
+              debounceReload();
           } else {
             scope.reload({value: value});
           }          
         }
 
-        scope.selectMatch = function(activeIdx, evt) {
-          var debounce = scope.debounce();
-          if (angular.isNumber(debounce) || angular.isObject(debounce)) {
-            this.$$debounce(function() {
-              scope.select({activeIdx: activeIdx, evt: evt});
+        scope.selectMatch = (activeIdx, evt) => {
+          var debounce = scope.debounce;
+          debounceIndex = activeIdx;
+          debounceEvt = evt;
+          evt.preventDefault();
+          evt.stopImmediatePropagation();
+          if (debounceSelect) {
+            debounceSelect();
+          } else if (angular.isNumber(debounce) || angular.isObject(debounce)) {
+            debounceSelect = this.$$debounce(() => {
+              scope.select({activeIdx: debounceIndex, evt: debounceEvt});
             }, angular.isNumber(debounce) ? debounce : debounce['default']);
+            debounceSelect();
           } else {
             scope.select({activeIdx: activeIdx, evt: evt});
           }
@@ -68,6 +84,7 @@ export class TypeaheadPopup implements ng.IDirective {
         directive.$inject = ['$$debounce', '$templateCache'];
         return directive;  
       }
+
 }
 
 var tempura = angular.module('tempura.typeahead.popup', [])
