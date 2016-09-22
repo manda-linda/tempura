@@ -1,4 +1,4 @@
-import '../typeahead.js';
+import '../typeahead';
 
 describe('syntax parser', function () {
 
@@ -7,10 +7,9 @@ describe('syntax parser', function () {
   beforeEach(function () {
         angular.mock.module('tempura.typeahead');    
     });
-  beforeEach(module('templates'));
 
-  beforeEach(inject(function (_$rootScope_, _filterFilter_, _ghsTypeaheadParser_) {
-    typeaheadParser = _ghsTypeaheadParser_;
+  beforeEach(inject(function (_$rootScope_, _filterFilter_, _typeaheadParser_) {
+    typeaheadParser = _typeaheadParser_;
     scope = _$rootScope_;
     filterFilter = _filterFilter_;
   }));

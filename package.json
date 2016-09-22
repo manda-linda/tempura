@@ -18,10 +18,21 @@
   },
   "homepage": "https://github.com/manda-linda/tempura#readme",
   "devDependencies": {
+    "angular-ui-bootstrap": "^2.1.3",
     "del": "^2.2.1",
     "gulp": "^3.9.1",
+    "gulp-angular-templates": "0.0.2",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-html-replace": "^1.6.1",
+    "gulp-inline-source": "^3.0.0",
     "gulp-jspm-build": "0.0.15",
     "gulp-load-tasks": "^0.8.4",
+    "gulp-minify": "0.0.14",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
     "gulp-typings": "^2.0.3",
     "gulp-util": "^3.0.7",
     "jasmine": "^2.4.1",
@@ -31,21 +42,23 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-jspm": "git+https://github.com/erictsai6/karma-jspm#2.2.0",
-    "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-phantomjs-shim": "^1.2.0",
+    "run-sequence": "^1.2.2",
     "typescript": "^1.8.10",
     "typings": "^1.3.2"
   },
   "dependencies": {
     "angular": "1.5.3",
-    "angular-mocks": "1.5.3"
+    "angular-mocks": "1.5.3",
+    "prismjs": "^1.5.1"
   },
   "jspm": {
     "configFile": "config/systemjs-config.js",
     "dependencies": {
       "angular-mocks": "npm:angular-mocks@1.5.3",
       "jasmine": "npm:jasmine@2.4.1",
+      "text": "github:systemjs/plugin-text@^0.0.7",
       "ts": "github:frankwallis/plugin-typescript@^4.0.1"
     },
     "devDependencies": {

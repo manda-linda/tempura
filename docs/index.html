@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Get Tempura</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="demo.js"></script>
+    <script>angular.module("tempura").run(["$templateCache",function(e){e.put("typeahead/template/typeahead-match.html",'<a tabindex="-1" ng-bind-html="match.label | ghsTypeaheadSanitize:query"></a>\n')}]),angular.module("tempura").run(["$templateCache",function(e){e.put("typeahead/template/typeahead-popup.html",'<ul class="dropdown-menu" ng-show="isOpen()" ng-style="{top: position.top+\'px\', left: position.left+\'px\', width: \'100%\'}" style="display: block;" role="listbox" aria-hidden="{{!isOpen()}}">\n    <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{match.id}}">\n        <div ghs-typeahead-match index="$index" match="match" reload="::forceReload(value)" query="query" template-url="::templateUrl"></div>\n    </li>\n</ul>\n')}]);</script>
+
+    <style>body{font-family:helvetica,ariel;font-size:14px}code{background-color:rgba(246,246,246,.9);display:block;padding:10px;margin:10px}button{border-radius:4px;display:inline-block;text-align:center;vertical-align:middle;white-space:nowrap;border-width:2px;border-style:solid;background:0 0;transition-property:background,border-color;transition-duration:.2s;transition-timing-function:ease}button,input{padding:5px;margin:5px;border-color:#399;color:#33999b}button:focus,button:hover{color:#fff;background-color:#399}.text{background-color:#efeff3;margin:10px;padding:15px}#appBackground{background-image:url(/demo/assets/tempura-white.jpg);background-repeat:repeat-y;background-size:152px 138px;display:block;position:fixed;left:0;top:0;width:100%;height:100%;z-index:-1}.content{background-color:rgba(255,255,255,.6);height:100%;padding:0 7%}.demoContent{padding-bottom:10px;margin-bottom:20px}.title{padding:20px 0;border-bottom:1px solid}.dropdown-menu .active{color:#fff;background-color:#399}.dropdown-menu{position:absolute;color:#33999b;margin-top:0;background-color:#fff;max-width:250px;-webkit-box-shadow:0 17px 44px -8px rgba(0,0,0,.75);-moz-box-shadow:0 17px 44px -8px rgba(0,0,0,.75);box-shadow:0 17px 44px -8px rgba(0,0,0,.75);list-style:none;padding-left:0}.dropdown-menu li{padding:10px;color:#33999b}.eventPopover div{display:inline-block;padding:30px;margin:15px;border:solid 2px;border-color:#399;color:#33999b}.language-markup .tag{display:block;margin-left:5px}.language-markup .tag:first-child{display:inline-block}.tab-pane{margin:20px}.tabContainer{max-width:80%}</style>
+    <style>.popOver-content{display:block;text-align:left;font-family:Helvetica,arial,sans-serif;font-size:10px;position:absolute;visibility:hidden;opacity:0;z-index:-1;border-radius:4px;transition:opacity .3s ease-in-out,z-index .3s ease-in-out,visibility .3s ease-in-out;white-space:normal;top:0;left:0;color:#fff;background:#000;box-shadow:0 3px 9px rgba(0,0,0,.5);padding:12px}.popOver-content.large{padding:24px}.popOver-content.light{color:#000;background:#fff}.popOver-content>.caret{width:0;height:0;position:absolute;top:auto;bottom:auto;left:auto;right:auto;border:6px solid #000;box-sizing:border-box;box-shadow:-3px 3px 3px -3px rgba(0,0,0,.5)}.popOver-content.large>.caret{border-width:12px}.popOver-content.light>.caret{border-color:#fff}.popOver-contentInner{display:block;position:relative}.popOver-content.active{visibility:visible;opacity:1;z-index:100}.popOver-content.top{margin-bottom:12px}.popOver-content.top>.caret{margin-bottom:-5px;transform:rotate(-45deg)}.popOver-content.large.top{margin-bottom:24px}.popOver-content.large.top>.caret{margin-bottom:-8px}.popOver-content.bottom{margin-top:12px}.popOver-content.bottom>.caret{margin-top:-5px;transform:rotate(-225deg)}.popOver-content.large.bottom{margin-top:24px}.popOver-content.large.bottom>.caret{margin-top:-8px}.popOver-content.left>.caret{margin-right:-5px;transform:rotate(225deg)}.popOver-content.large.left>.caret{margin-right:-8px}.popOver-content.right>.caret{margin-left:-5px;transform:rotate(45deg)}.popOver-content.large.right>.caret{margin-left:-8px}</style>
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>code[class*=language-],pre[class*=language-]{color:#000;background:0 0;text-shadow:0 1px #fff;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-] ::-moz-selection,code[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection{text-shadow:none;background:#b3d4fc}code[class*=language-] ::selection,code[class*=language-]::selection,pre[class*=language-] ::selection,pre[class*=language-]::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#a67f59;background:rgba(255,255,255,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style>
+    <style>.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}.uib-datepicker .uib-title,.uib-left,.uib-right{width:100%}.uib-day button,.uib-month button,.uib-year button{min-width:100%}.uib-position-measure{display:block!important;visibility:hidden!important;position:absolute!important;top:-9999px!important;left:-9999px!important}.uib-position-scrollbar-measure{position:absolute!important;top:-9999px!important;width:50px!important;height:50px!important;overflow:scroll!important}.uib-position-body-scrollbar-measure{overflow:scroll!important}.uib-datepicker-popup.dropdown-menu{display:block;float:none;margin:0}.uib-button-bar{padding:10px 9px 2px}[uib-popover-html-popup].popover.bottom-left>.arrow,[uib-popover-html-popup].popover.bottom-right>.arrow,[uib-popover-html-popup].popover.left-bottom>.arrow,[uib-popover-html-popup].popover.left-top>.arrow,[uib-popover-html-popup].popover.right-bottom>.arrow,[uib-popover-html-popup].popover.right-top>.arrow,[uib-popover-html-popup].popover.top-left>.arrow,[uib-popover-html-popup].popover.top-right>.arrow,[uib-popover-popup].popover.bottom-left>.arrow,[uib-popover-popup].popover.bottom-right>.arrow,[uib-popover-popup].popover.left-bottom>.arrow,[uib-popover-popup].popover.left-top>.arrow,[uib-popover-popup].popover.right-bottom>.arrow,[uib-popover-popup].popover.right-top>.arrow,[uib-popover-popup].popover.top-left>.arrow,[uib-popover-popup].popover.top-right>.arrow,[uib-popover-template-popup].popover.bottom-left>.arrow,[uib-popover-template-popup].popover.bottom-right>.arrow,[uib-popover-template-popup].popover.left-bottom>.arrow,[uib-popover-template-popup].popover.left-top>.arrow,[uib-popover-template-popup].popover.right-bottom>.arrow,[uib-popover-template-popup].popover.right-top>.arrow,[uib-popover-template-popup].popover.top-left>.arrow,[uib-popover-template-popup].popover.top-right>.arrow,[uib-tooltip-html-popup].tooltip.bottom-left>.tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right>.tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom>.tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top>.tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom>.tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top>.tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left>.tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right>.tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left>.tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right>.tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom>.tooltip-arrow,[uib-tooltip-popup].tooltip.left-top>.tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom>.tooltip-arrow,[uib-tooltip-popup].tooltip.right-top>.tooltip-arrow,[uib-tooltip-popup].tooltip.top-left>.tooltip-arrow,[uib-tooltip-popup].tooltip.top-right>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left>.tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right>.tooltip-arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0}[uib-popover-html-popup].popover,[uib-popover-popup].popover,[uib-popover-template-popup].popover{display:block!important}.uib-time input{width:50px}[uib-typeahead-popup].dropdown-menu{display:block}</style>
+</head>
+
+<body ng-controller="exampleController">
+<div id="appBackground"></div>
+<div class="content">
+    <h1 class="title">Tempura Demo</h1>
+    <div class="text">a collection of angular components and tools developed or modified by GrubHub. 
+        Some of them are original and others are customizations of Twitter Bootstraps. </div>
+    
+    <div class="demoContent">
+        <h2> Typeahead </h2>
+        <div class="text"> Typeahead is a modified version of Angular Bootstraps' typeahead component with some new features including: 
+            <ul> 
+                <li>touch screen support</li>
+                <li>open on focus</li>
+                <li>list refreshing</li>
+            </ul>
+            and removing: 
+            <ul>
+                <li> hint </li>
+                <li> highlight </li>
+            </ul>
+        </div>
+  <uib-tabset class="tabContainer">
+        <uib-tab index="0" heading="Demo">
+            <span ng-include="'typeahead1.tpl.html'"></span>
+            <button ng-click="click()"> Random food </button>   
+        </uib-tab>
+        <uib-tab index="1" heading="HTML">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead1"></code>
+        </uib-tab>
+        <uib-tab index="2" heading="JS">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead1Code"></code>
+        </uib-tab>
+  </uib-tabset>
+
+   <uib-tabset class="tabContainer">
+        <uib-tab index="0" heading="Demo">
+           <div class="text"> The typeahead reload function is exposed to matches so that matches can trigger updates.</div>
+            <span ng-include="'typeahead2.tpl.html'"></span>
+        </uib-tab>
+        <uib-tab index="1" heading="HTML">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead2"></code>
+        </uib-tab>
+        <uib-tab index="2" heading="Custom Match TPL">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeaheadmatch"></code>
+        </uib-tab>        
+        <uib-tab index="3" heading="JS">
+            <code class="language-markup" data-lang="html" ng-bind-html="typeahead2Code"></code>
+        </uib-tab>
+  </uib-tabset>
+
+    </div>
+
+    <div class="demoContent">
+        <h2> Popover </h2>
+        <div class="text"> Popover is a lightweight popover solution that does not rely on scope.</div>
+        <uib-tabset class="tabContainer">
+            <uib-tab index="0" heading="Demo">
+                <span ng-include="'popover1.tpl.html'"></span>
+            </uib-tab>
+            <uib-tab index="1" heading="HTML">
+                <code class="language-markup" data-lang="html" ng-bind-html="popover1"> </code>
+            </uib-tab> 
+        </uib-tabset>
+        <uib-tabset  class="tabContainer">
+            <uib-tab index="0" heading="Demo">
+                <span  class="eventPopover" ng-include="'popover2.tpl.html'"></span>
+            </uib-tab>
+            <uib-tab index="1" heading="HTML">
+                <code class="language-markup" data-lang="html" ng-bind-html="popover2"> </code>
+            </uib-tab> 
+        </uib-tabset> 
+        <uib-tabset class="tabContainer">
+            <uib-tab index="0" heading="Demo">
+                <span  class="eventPopover" ng-include="'popover3.tpl.html'"></span>
+            </uib-tab>
+            <uib-tab index="1" heading="HTML">
+                <code class="language-markup" data-lang="html" ng-bind-html="popover3"> </code>
+            </uib-tab> 
+        </uib-tabset>               
+    </div>
+
+</div>
+</body>
+
+
+</html>

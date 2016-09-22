@@ -11,17 +11,10 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jspm','jasmine', 'phantomjs-shim'],
-    preprocessors: {
-       'src/typeahead/template/*.html': ['ng-html2js']
-    },
+
     files: [        
-      'node_modules/angular/angular.min.js',
-      'src/typeahead/template/*.html'
+      'node_modules/angular/angular.min.js'
     ],
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'src/',
-      moduleName: 'templates'
-    },
 
     jspm: {
       config: 'config/systemjs-config.js',
@@ -34,8 +27,7 @@ module.exports = function(config) {
         'src/**/*-spec.js'      
       ],
       serveFiles: [
-        'src/**/!(*spec).js',
-        'src/**/!(*spec).ts',
+        'src/**/!(*spec).*',
         'test-lib/*',
         'config/**/*.js'
      ],
@@ -83,7 +75,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
