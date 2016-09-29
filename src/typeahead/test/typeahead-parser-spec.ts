@@ -1,3 +1,5 @@
+///<reference path="../../../typings/index.d.ts"/>
+
 import '../typeahead';
 
 describe('syntax parser', function () {

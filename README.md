@@ -8,7 +8,38 @@
 ```
 angular.module('myModule', ['tempura']);
 ```
-##ghs-pop-over
+
+##Developing
+
+###Install dependencies:
+`npm install --global gulp-cli`
+
+`npm install`
+
+`jspm install`
+
+`gulp installTypings` or `typings install`
+
+###Testing
+Run jasmine specs using karma server. All spec files must have "-spec" in the name
+
+`gulp test` 
+
+###Building
+Jspm handles transpiling TS to ES5, bunding, and minifying. The output file is: dist/tempura.js
+
+`gulp build`
+
+
+###Serving
+Run a gulp server to see demo at localhost:8080/index.html or unbuilt at localhost:8080/build-index.html
+
+`gulp serve`
+
+
+## Directives
+
+###ghs-pop-over
 
 Sample usage:
 
@@ -31,6 +62,32 @@ Sample usage:
     </div>
 </div>
 ```
+The ghs-pop-over directives provide several attributes:
+* `pop-over-make-active`
+
+* `pop-over-disabled`
+
+* `pop-over-triggers`
+
+* `pop-over-vertical-offset`
+
+* `pop-over-horizontal-offset`
+
+* `pop-over-use-mouse-target`
+
+* `pop-over-max-width`
+
+* `pop-over-content`
+
+* `pop-over-content-src`
+
+* `pop-over-position`
+:
+left, right, top, bottom
+
+* `pop-over-css-class`
+
+
 
 ###ghs-typeahead
 
@@ -118,30 +175,3 @@ The ghs-typeahead directives provide several attributes:
    _(Defaults: null)_ :
    A callback executed when the dropdown is closed
 
-
-##Developing
-
-###Install dependencies:
-`npm install --global gulp-cli`
-
-`npm install`
-
-`jspm install`
-
-`gulp installTypings` or `typings install`
-
-###Testing
-Run jasmine specs using karma server. All spec files must have "-spec" in the name
-
-`gulp test` 
-
-###Building
-Jspm handles transpiling TS to ES5, bunding, and minifying. The output file is: dist/tempura.js
-
-`gulp build`
-
-
-##Serving
-Run a gulp server to see demo at localhost:8080/index.html or unbuilt at localhost:8080/build-index.html
-
-`gulp serve`

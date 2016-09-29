@@ -1,4 +1,6 @@
-Typeahead is a AngularJS version of [Bootstrap v2's typeahead plugin](http://getbootstrap.com/2.3.2/javascript.html#typeahead).
+##GHS-Typeahead 
+
+is a modified version of Angular Bootstraps' typeahead.
 This directive can be used to quickly create elegant typeaheads with any form text input.
 
 It is very well integrated into AngularJS as it uses a subset of the
@@ -9,34 +11,43 @@ It is very well integrated into AngularJS as it uses a subset of the
 
 The `sourceArray` expression can use a special `$viewValue` variable that corresponds to the value entered inside the input.
 
-This directive works with promises, meaning you can retrieve matches using the `$http` service with minimal effort.
+This directive works with promises, meaning you can retrieve matches using the `$http` service with minimal effort and utilizes 
+one-way data-binding and functional debouncing to acheive better performance. It extends the original Angular Bootstraps directive by including
+touch capabilities and reload features.
 
 The ghs-typeahead directives provide several attributes:
-
-* `ng-model` <i class="glyphicon glyphicon-eye-open"></i>
+* `ng-model`
    :
    Assignable angular expression to data-bind to
 
-* `typeahead` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead`
    :
    Comprehension Angular expression (see [select directive](http://docs.angularjs.org/api/ng.directive:select))
 
-* `typeahead-append-to-body` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead-append-to-body`
    _(Defaults: false)_ : Should the typeahead popup be appended to $body instead of the parent element?
 
-* `typeahead-editable` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead-append-to`
+    :
+    Specify an element to append popup to
+
+* `typeahead-editable`
    _(Defaults: true)_ :
    Should it restrict model values to the ones selected from the popup only ?
 
-* `typeahead-input-formatter` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead-input-formatter`
    _(Defaults: undefined)_ :
    Format the ng-model result after selection
 
-* `typeahead-loading` <i class="glyphicon glyphicon-eye-open"></i>
+*  `typeahead-is-open`
+    :
+    Variable to determine if popup is open
+
+* `typeahead-loading`
    _(Defaults: angular.noop)_ :
    Binding to a variable that indicates if matches are being retrieved asynchronously
 
-* `typeahead-min-length` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead-min-length`
    _(Defaults: 1)_ :
    Minimal no of characters that needs to be entered before typeahead kicks-in
 
@@ -44,11 +55,26 @@ The ghs-typeahead directives provide several attributes:
    _(Defaults: null)_ :
    A callback executed when a match is selected
 
-* `typeahead-template-url` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead-should-select($event): boolean`
+    _(Defaults: enter and tab)_ :
+    A function to determine if an event should select
+
+* `typeahead-select-on-blur`
+    _(Defaults: false)_ :
+
+* `typeahead-no-results`
+    :
+    A flag to determine if there were no results from query
+
+* `typeahead-popup-template-url`
+    :
+    Set custom popup template
+
+* `typeahead-template-url`
    :
    Set custom item template
 
-* `typeahead-wait-ms` <i class="glyphicon glyphicon-eye-open"></i>
+* `typeahead-wait-ms`
    _(Defaults: 0)_ :
    Minimal wait time after last character typed before typeahead kicks-in
 

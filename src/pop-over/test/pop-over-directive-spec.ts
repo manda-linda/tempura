@@ -1,5 +1,5 @@
-///<reference path="../../typings/index.d.ts"/>
-import './pop-over-directive';
+///<reference path="../../../typings/index.d.ts"/>
+import '../pop-over-directive';
 
 describe('<Unit Test> Pop Over Component', () => {
     let $rootScope,
@@ -9,9 +9,9 @@ describe('<Unit Test> Pop Over Component', () => {
         element,
         ctrl;
 
-    jasmine.clock().install();
 
-    beforeEach(function () {
+    beforeEach( () => {
+        jasmine.clock().install();
         angular.mock.module('tempura.popOver');    
     });
 
@@ -27,6 +27,10 @@ describe('<Unit Test> Pop Over Component', () => {
         $window = _$window_;
 
     }));
+
+    afterEach(() => {
+        jasmine.clock().uninstall();
+    });
 
 
     let getController = (html) => {
