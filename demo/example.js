@@ -30,7 +30,6 @@ angular.module('examples', [])
     };
 
     $scope.callBack = function($viewValue) {
-        console.log("typeahead select");
         var results = [];
         for( var i = 0 ; i < food.dishes.length; i++) {
             if(food.dishes[i].toLowerCase().indexOf($viewValue.toLowerCase()) > -1){
