@@ -56,7 +56,7 @@ Sample usage:
      pop-over-max-width="200"
      pop-over-content-src=".ratings"
      position="bottom">
-    <span> Hover over me to see yours popover </span>
+    <span> Hover over me to see your popover </span>
     <div class="ratings">
         This markup will be moved to the popover
     </div>
