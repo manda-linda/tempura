@@ -97,14 +97,12 @@ Sample usage:
 ```html
 <input ghs-typeahead="result.value for result in callBack($viewValue)" 
         ng-model="exampleModel.value" 
-        ng-model-options="{ updateOn: 'default', debounce: { 'default': 500 } }" >
-</input>
+        ng-model-options="{ updateOn: 'default', debounce: { 'default': 500 } }" />
 ```
 ```html
 <input ghs-typeahead="result.value for result in callBack2($viewValue)" 
         ng-model="exampleModel.value" 
-        typeahead-template-url="typeaheadMatchReload.tpl.html" >
-</input>
+        typeahead-template-url="typeaheadMatchReload.tpl.html" />
 ```
 
 
